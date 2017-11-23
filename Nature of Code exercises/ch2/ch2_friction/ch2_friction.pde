@@ -1,15 +1,14 @@
 Mover[] movers = new Mover[100];
 
 
-
 void setup(){
   size(1000, 800);
   
   for(int i = 0; i < movers.length; i++){
     movers[i] = new Mover(random(0.1, 5), 0, 0);
   }
-
 }
+
 
 void draw(){
   background(255);
@@ -29,11 +28,8 @@ void draw(){
     movers[i].applyForce(wind);  
     movers[i].applyForce(gravity);
 
-
     movers[i].update();
     movers[i].display();
     movers[i].checkEdges();
-}
-  
-  
+  }
 }

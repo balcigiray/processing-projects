@@ -46,8 +46,4 @@ class Mover {
       location.y = height;
     }
   }
-
-
-
-
-}  
+} 
