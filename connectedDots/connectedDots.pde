@@ -1,24 +1,27 @@
 //Date: 31 May 2021
 
-final color backColor = color(40);
+final color backColor = color(33);
 //final color strokeColor = color(25, 70, 100);
-final color strokeColor = color(230);
+final color strokeColor = color(100);
 
 Point p1, p2;
 ArrayList<Point> points = new ArrayList<Point>();
 
 //configuration
-int gridSize = 120;
+int gridSize = 90;
 int padding = 5;
-int circleDia = 20;
+int circleDia = 8;
 
 float numX, numY;
 
 boolean lines = true;
-boolean triangularLines = false;
+boolean triangularLines = true;
+int state = 3;
+float kscale = 1;
 
 void setup() {
-  size(1200, 720);
+  fullScreen();
+  //size(1200, 720);
   //noLoop();
   frameRate(30);
 
@@ -34,10 +37,18 @@ void setup() {
       points.add(new Point(new PVector(gridPosX, gridPosY), gridSize, circleDia, padding));
     }
   }
+
+  kscale = 1+4*(float(gridSize)/width);
+
+  state--;
+  mousePressed();
 }
 
 void draw() {
   background(backColor);
+  
+  scale(kscale);
+  translate(-1*gridSize, -1*gridSize);
 
   for (int j=0; j<numY; j++) {
     for (int i=0; i<numX; i++) {
@@ -60,7 +71,7 @@ void draw() {
         }
       }
 
-      if (true==triangularLines) {
+      if (true == triangularLines) {
         //line. triangulars
         if ((j%2 == 1) & (i%2 == 1)) {
           stroke(strokeColor);
@@ -82,6 +93,13 @@ void draw() {
           }
         }
       }
+      //p1.display();
+      //p1.move();
+    }
+  }
+  for (int j=0; j<numY; j++) {
+    for (int i=0; i<numX; i++) {
+      p1 = points.get(int(numX*j + i));
       p1.display();
       p1.move();
     }
@@ -104,9 +122,6 @@ void draw() {
   }
 }
 
-
-int state = 3;
-
 void mousePressed() {
   state++;
   if (state > 3) {
@@ -115,17 +130,24 @@ void mousePressed() {
 
   switch(state) {
   case 0:
-    lines = !lines;
-    break;
-  case 1: 
-    triangularLines = !triangularLines;
-    break;
-  case 2:
-    lines = !lines;
-    break;
-  case 3:
     lines = false;
     triangularLines = false;
     break;
+  case 1: 
+    lines = true;
+    triangularLines = false;
+    break;
+  case 2:
+    lines = false;
+    triangularLines = true;
+    break;
+  case 3:
+    lines = true;
+    triangularLines = true;
+    break;
+  }
+
+  if ((mouseX > width*0.9) & (mouseY < height*0.1)) {
+    exit();
   }
 }

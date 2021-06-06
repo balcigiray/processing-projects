@@ -1,6 +1,6 @@
 class Point {
   //final color fillColor = color(25, 70, 100);
-  final color fillColor = color(230);
+  final color fillColor = color(220);
 
   PVector pos;
   PVector gridPos;
@@ -11,6 +11,7 @@ class Point {
 
   PVector perlin;
   float noiseStep = 0.04; 
+  
   private float circleSizeDeviation = 0.3;
   private float margin;
 
@@ -28,7 +29,7 @@ class Point {
     pos = new PVector(posX, posY);
 
     perlin = new PVector(random(0, 10), random(0, 10));
-    noiseStep = random(0.002, 0.008);
+    noiseStep = random(0.002, 0.005);
 
     margin = gridSize/2-dia/2-padding;
 
